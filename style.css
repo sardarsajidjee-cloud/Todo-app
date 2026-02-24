@@ -1,80 +1,51 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
+  background-color:rgba(1,50,0,1)
+  margin: 0;
+  padding: 0;
+  color:white;
+  
 }
 
-.todo-container {
-    background-color: #fff;
-    padding: 20px 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    width: 100%;
-    max-width: 400px;
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color:rgba(80,0,0,1)
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-h1 {
-    text-align: center;
-    color: #333;
+h1, h2, h3 {
+  text-align: center;
 }
 
-.input-section {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
+.products, .cart {
+  margin: 20px 0;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: rgba(0,50,90,1);
+  text-color:white;
 }
 
-#todo-input {
-    flex: 1;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+#products div, #cart div {
+  margin: 10px 0;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
 }
 
-#add-btn {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    background-color: #4caf50;
-    color: white;
-    cursor: pointer;
+button {
+  margin: 5px;
+  padding: 5px 10px;
+  background-color: #3498db;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  font-weight: bold;
+  background-color:green;
 }
 
-#add-btn:hover {
-    background-color: #45a049;
+button:hover {
+  background-color: #2980b9;
 }
-
-#todo-list {
-    list-style: none;
-    padding: 0;
-}
-
-#todo-list li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 8px;
-    border-bottom: 1px solid #ddd;
-}
-
-#todo-list li.completed {
-    text-decoration: line-through;
-    color: #888;
-}
-
-.delete-btn {
-    background-color: #f44336;
-    border: none;
-    color: white;
-    padding: 5px 8px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.delete-btn:hover {
-    background-color: #e53935;
-  }
