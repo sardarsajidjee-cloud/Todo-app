@@ -1,107 +1,77 @@
-let randomNumber;
-let maxAttempts;
-let attemptsLeft;
-let level;
-let history = [];
+const products = [
+  { id: 1, name: "Shirt", price: 1000 },
+  { id: 2, name: "Shoes", price: 2500 }
+];
 
-function setLevel() {
-  level = document.getElementById("level").value;
+let cart = [];
 
-  if (level === "easy") {
-    randomNumber = generateRandom(10);
-    maxAttempts = 5;
-  } else if (level === "hard") {
-    randomNumber = generateRandom(50);
-    maxAttempts = 7;
-  }
+const productsDiv = document.getElementById("products");
+const cartDiv = document.getElementById("cart");
+const totalDiv = document.getElementById("total");
 
-  attemptsLeft = maxAttempts;
-  history = [];
-
-  enableGame();
-  updateAttempts();
-  showMessage("Game Started 🎮", "white");
+// Render products (name + price + add button)
+function renderProducts() {
+  productsDiv.innerHTML = ""; // clear first
+  products.forEach(product => {
+    productsDiv.innerHTML += `
+      <div>
+        <h4>${product.name}</h4>
+        <p>Price: ${product.price}</p>
+        <button onclick="addToCart(${product.id})">Add</button>
+      </div>
+    `;
+  });
 }
 
-function generateRandom(max) {
-  return Math.floor(Math.random() * max) + 1;
-}
+// Add to cart
+function addToCart(id) {
+  const item = cart.find(p => p.id === id);
 
-function checkGuess() {
-  const input = document.getElementById("guessInput");
-  const guess = Number(input.value);
-
-  if (!isValidGuess(guess)) return;
-
-  attemptsLeft--;
-  history.push(guess);
-
-  if (guess === randomNumber) {
-    saveBestScore();
-    showMessage("🎉 You Win!", "lightgreen");
-    endGame();
-  } else if (attemptsLeft === 0) {
-    showMessage(`❌ Game Over! Number was ${randomNumber}`, "red");
-    endGame();
+  if (item) {
+    item.quantity++;
   } else {
-    showMessage(
-      guess > randomNumber ? "📉 Too High" : "📈 Too Low",
-      "orange"
-    );
+    const product = products.find(p => p.id === id);
+    cart.push({ ...product, quantity: 1 });
   }
 
-  updateAttempts();
-  input.value = "";
+  renderCart();
 }
 
-function isValidGuess(guess) {
-  if (!guess) {
-    alert("Enter a number");
-    return false;
+// Render cart + total
+function renderCart() {
+  cartDiv.innerHTML = "";
+
+  cart.forEach(item => {
+    cartDiv.innerHTML += `
+      <div>
+        <h4>${item.name}</h4>
+        <p>${item.price} x ${item.quantity}</p>
+        <button onclick="changeQty(${item.id}, 1)">+</button>
+        <button onclick="changeQty(${item.id}, -1)">-</button>
+      </div>
+    `;
+  });
+
+  updateTotal();
+}
+
+// Change quantity + remove if 0
+function changeQty(id, amount) {
+  const item = cart.find(p => p.id === id);
+  item.quantity += amount;
+
+  if (item.quantity <= 0) {
+    cart = cart.filter(p => p.id !== id);
   }
 
-  if (level === "easy" && (guess < 1 || guess > 10)) {
-    alert("Easy level: 1–10 only");
-    return false;
-  }
-
-  if (level === "hard" && (guess < 1 || guess > 50)) {
-    alert("Hard level: 1–50 only");
-    return false;
-  }
-
-  return true;
+  renderCart();
 }
 
-function updateAttempts() {
-  document.getElementById("attempts").innerText =
-    `Attempts Left: ${attemptsLeft} | History: ${history.join(", ")}`;
+// Update total
+function updateTotal() {
+  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  totalDiv.textContent = "Total: " + total;
 }
 
-function showMessage(text, color) {
-  const msg = document.getElementById("message");
-  msg.innerText = text;
-  msg.style.color = color;
-}
-
-function saveBestScore() {
-  let best = localStorage.getItem(`best-${level}`);
-
-  if (!best || attemptsLeft > best) {
-    localStorage.setItem(`best-${level}`, attemptsLeft);
-  }
-}
-
-function enableGame() {
-  document.getElementById("guessInput").disabled = false;
-  document.getElementById("guessBtn").disabled = false;
-}
-
-function endGame() {
-  document.getElementById("guessInput").disabled = true;
-  document.getElementById("guessBtn").disabled = true;
-}
-
-function resetGame() {
-  location.reload();
-}
+// Initial render
+renderProducts();
