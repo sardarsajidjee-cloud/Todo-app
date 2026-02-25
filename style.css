@@ -1,51 +1,72 @@
+/* Body and general styles */
 body {
-  background-color:rgba(1,50,0,1)
+  background-color: rgba(1,50,0,1);
   margin: 0;
   padding: 0;
-  color:white;
-  
-}
-
-.container {
-  max-width: 800px;
-  margin: 20px auto;
-  padding: 20px;
-  background-color:rgba(80,0,0,1)
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-h1, h2, h3 {
+  color: white;
+  font-family: Arial, sans-serif;
   text-align: center;
 }
 
+/* Container for all content */
+.container {
+  max-width: 800px;       /* Desktop limit */
+  width: 90%;             /* Mobile-friendly width */
+  margin: 20px auto;
+  padding: 20px;
+  background-color: rgba(80,0,0,1);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  box-sizing: border-box;
+}
+
+/* Headings */
+h1, h2, h3 {
+  text-align: center;
+  font-size: 5vw;           /* Responsive font-size */
+  margin: 10px 0;
+}
+
+/* Sections */
 .products, .cart {
   margin: 20px 0;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 8px;
   background-color: rgba(0,50,90,1);
-  text-color:white;
+  color: white;             /* Corrected from text-color */
+  box-sizing: border-box;
 }
 
+/* Product/Cart items */
 #products div, #cart div {
   margin: 10px 0;
   padding: 10px;
   border-bottom: 1px solid #ddd;
+  font-size: 4vw;           /* Responsive text */
 }
 
+/* Buttons */
 button {
   margin: 5px;
-  padding: 5px 10px;
-  background-color: #3498db;
+  padding: 10px 15px;       /* Slightly bigger for mobile */
+  background-color: green;
   border: none;
   border-radius: 5px;
   color: #fff;
   cursor: pointer;
   font-weight: bold;
-  background-color:green;
+  font-size: 4vw;           /* Responsive font */
+  box-sizing: border-box;
 }
 
 button:hover {
   background-color: #2980b9;
+}
+
+/* Media query for larger screens */
+@media(min-width: 600px){
+  h1, h2, h3 { font-size: 28px; }
+  #products div, #cart div { font-size: 16px; }
+  button { font-size: 16px; padding: 8px 12px; }
 }
